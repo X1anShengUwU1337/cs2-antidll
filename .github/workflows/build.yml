@@ -54,6 +54,8 @@ jobs:
           git clone --recursive --branch cs2 --single-branch https://github.com/alliedmodders/hl2sdk.git hl2sdk-cs2
           cd ../..
           git clone https://github.com/pisex/SchemaEntity.git
+          cd SchemaEntity
+          git apply ${{ github.workspace }}/patches/schemaentity-networkstate.patch
           cd ${{ github.workspace }}
           
       - name: Configure and build plugin
