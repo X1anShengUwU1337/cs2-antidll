@@ -55,7 +55,7 @@ jobs:
           cd ../..
           git clone https://github.com/pisex/SchemaEntity.git
           cd SchemaEntity
-          git apply ${{ github.workspace }}/patches/schemaentity-networkstate.patch
+          sed -i 's/NetworkStateChanged_t/NetworkStateChangedData/g' schemasystem.cpp
           cd ${{ github.workspace }}
           
       - name: Configure and build plugin
