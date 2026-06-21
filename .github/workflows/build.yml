@@ -102,7 +102,13 @@ jobs:
           clang --version
           python3 --version
           cd build
-          ambuild --show-graph || ambuild
+          ambuild
+
+      - name: Verify build output
+        run: |
+          set -eux
+          find build -maxdepth 4 -type f | sort
+          find build -type f \( -name '*.so' -o -name '*.dll' \)
 
       - name: Upload archive to artifact
         uses: actions/upload-artifact@v4
