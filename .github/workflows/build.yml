@@ -107,11 +107,9 @@ jobs:
       - name: Create archive
         run: |
           set -eux
-          if [ -d build/package/addons ]; then
-            cd build/package
-          else
-            cd build
-          fi
+          package_root="$(find build -type d -name addons | head -n1 | xargs dirname)"
+          test -n "$package_root"
+          cd "$package_root"
           zip -r "${{ github.workspace }}.zip" addons
 
       - name: Upload archive to artifact
