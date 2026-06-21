@@ -99,8 +99,10 @@ jobs:
         run: |
           set -eux
           which ambuild
+          clang --version
+          python3 --version
           cd build
-          ambuild
+          ambuild --show-graph || ambuild
 
       - name: Create archive
         run: |
