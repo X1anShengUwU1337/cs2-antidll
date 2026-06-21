@@ -52,14 +52,22 @@ jobs:
           python3 -m pip install .
           cd ..
 
-      - name: Fetch build dependencies
+      - name: Fetch Metamod
         run: |
           set -eux
           mkdir external
           cd external
           git clone --recursive --branch master --single-branch https://github.com/alliedmodders/metamod-source.git
+
+      - name: Fetch HL2SDK
+        run: |
+          set -eux
+          cd external
           git clone --recursive --branch cs2 --single-branch https://github.com/alliedmodders/hl2sdk.git hl2sdk-cs2
-          cd ../..
+
+      - name: Fetch SchemaEntity
+        run: |
+          set -eux
           git clone https://github.com/pisex/SchemaEntity.git
           cd SchemaEntity
           sed -i 's/NetworkStateChanged_t/NetworkStateChangedData/g' schemasystem.cpp
