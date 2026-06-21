@@ -68,7 +68,7 @@ jobs:
       - name: Fetch SchemaEntity
         run: |
           set -eux
-          git clone https://github.com/pisex/SchemaEntity.git
+          git clone --depth 1 https://github.com/pisex/SchemaEntity.git
           cd SchemaEntity
           sed -i 's/NetworkStateChanged_t/NetworkStateChangedData/g' schemasystem.cpp
           sed -i 's/FL_PAWN_FAKECLIENT/FL_FAKECLIENT/g' CCSPlayerPawn.h
