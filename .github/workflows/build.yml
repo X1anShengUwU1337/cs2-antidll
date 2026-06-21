@@ -104,12 +104,18 @@ jobs:
           cd build
           ambuild --show-graph || ambuild
 
+      - name: Locate package root
+        run: |
+          set -eux
+          find build -maxdepth 3 -type d | sort
+          package_root="$(find build -type d -name addons | head -n1)"
+          test -n "$package_root"
+          printf '%s\n' "${package_root%/addons}" > package_root.txt
+
       - name: Create archive
         run: |
           set -eux
-          package_root="$(find build -type d -name addons | head -n1 | xargs dirname)"
-          test -n "$package_root"
-          cd "$package_root"
+          cd "$(cat package_root.txt)"
           zip -r "${{ github.workspace }}.zip" addons
 
       - name: Upload archive to artifact
