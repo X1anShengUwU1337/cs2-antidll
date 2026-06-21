@@ -39,12 +39,11 @@ jobs:
         run: |
           export DEBIAN_FRONTEND=noninteractive
           apt-get update -qy
-          apt-get install -y --no-install-recommends ca-certificates git clang binutils python3 python3-pip zip
-          python3 -m pip install --upgrade pip importlib-metadata
-          python3 -m pip install setuptools==45.2.0
+          apt-get install -y --no-install-recommends ca-certificates git clang binutils build-essential python3 python3-pip python3-setuptools zip
+          python3 -m pip install --user importlib-metadata
           git clone https://github.com/alliedmodders/ambuild.git
           cd ambuild
-          pip install .
+          python3 -m pip install --user .
           cd ..
           mkdir external
           cd external
