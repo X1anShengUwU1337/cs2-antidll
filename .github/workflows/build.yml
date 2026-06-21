@@ -35,7 +35,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Set up dependencies
+      - name: Install system dependencies
         run: |
           set -eux
           export DEBIAN_FRONTEND=noninteractive
@@ -43,10 +43,18 @@ jobs:
           apt-get install -y --no-install-recommends ca-certificates git clang-11 binutils build-essential python3 python3-pip python3-setuptools zip
           ln -sf /usr/bin/clang-11 /usr/bin/clang
           ln -sf /usr/bin/clang++-11 /usr/bin/clang++
+
+      - name: Install AMBuild
+        run: |
+          set -eux
           git clone https://github.com/alliedmodders/ambuild.git
           cd ambuild
           python3 -m pip install .
           cd ..
+
+      - name: Fetch build dependencies
+        run: |
+          set -eux
           mkdir external
           cd external
           git clone --recursive --branch master --single-branch https://github.com/alliedmodders/metamod-source.git
