@@ -88,11 +88,18 @@ jobs:
           cd SchemaEntity
           sed -i 's/FL_CONTROLLER_FAKECLIENT/FL_FAKECLIENT/g' CCSPlayerController.h
           
-      - name: Configure and build plugin
+      - name: Configure plugin
         run: |
+          set -eux
           mkdir build
           cd build
           python3 ../configure.py -s cs2 --targets x86_64 --enable-optimize --hl2sdk-manifests=$MANIFEST_PATH --mms_path=$MMS_PATH --hl2sdk-root=$HL2SDK_ROOT
+
+      - name: Build plugin
+        run: |
+          set -eux
+          which ambuild
+          cd build
           ambuild
 
       - name: Create archive
